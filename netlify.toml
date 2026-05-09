@@ -1,0 +1,19 @@
+# Astro DB local: commitea data/astro-build.db y mantén ASTRO_DATABASE_FILE en build.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  ASTRO_DATABASE_FILE = "data/astro-build.db"
+
+# Misma variable en contextos de deploy por si algún paso del pipeline la necesita en runtime.
+[context.production.environment]
+  ASTRO_DATABASE_FILE = "data/astro-build.db"
+
+[context.deploy-preview.environment]
+  ASTRO_DATABASE_FILE = "data/astro-build.db"
+
+# Incluir el SQLite en el paquete de las funciones serverless.
+[functions]
+  included_files = ["data/astro-build.db"]
